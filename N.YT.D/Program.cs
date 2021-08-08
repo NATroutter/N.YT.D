@@ -2,34 +2,54 @@
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace N.YT.D {
     class Program {
 
         public static string version;
+        public static string UpdateURL = "http://natroutter.net/projects/N.YT.D/update/";
         public static Color baseColor = Color.FromArgb(231, 63, 52);
         public static Color highColor = Color.FromArgb(231, 159, 52);
 
         public static Tests tests = new Tests();
         public static Utils util = new Utils();
+        public static Updater updater = new Updater();
         public static Downloader downloader = new Downloader(baseColor, highColor);
 
 
         static async Task Main(string[] args) {
+            string Dir = AppDomain.CurrentDomain.BaseDirectory;
+            string installer = Dir + "/NYTDsetup.exe";
+
+            if (File.Exists(installer)) {
+                File.Delete(installer);
+            }
+
+            if (!await updater.UpToDate(UpdateURL)) {
+                DialogResult result = MessageBox.Show("New update aviable!\nDo you want to update now?", "N.YT.D", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (result == DialogResult.Yes) {
+                    Console.WriteLine("Updating...".Pastel(baseColor));
+                    await updater.Update(UpdateURL);
+                }
+                Environment.Exit(0);
+            }
+
             Assembly assembly = Assembly.GetExecutingAssembly();
             FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
             version = fvi.ProductVersion.Remove(fvi.ProductVersion.Length - 4);
 
             Console.Title = "N.YT.D - NATroutter's Youtube Downloader - Version: " + version;
 
-            await work();
+            await Work();
 
         }
 
 
-        public static async Task work() {
+        public static async Task Work() {
             Console.Clear();
             banner();
 
@@ -38,7 +58,7 @@ namespace N.YT.D {
                 return;
             }
 
-            Console.Write($"Youtube Link: ".Pastel(baseColor));
+            Console.Write("Youtube Link: ".Pastel(baseColor));
             Console.ForegroundColor = ConsoleColor.Yellow;
             string link = Console.ReadLine();
             if (!tests.IsValidLink(link)) {
@@ -49,7 +69,7 @@ namespace N.YT.D {
 
             if (tests.OldSettingsPresent()) {
                 Console.WriteLine(" ");
-                Console.Write($"Use Last Settings (y/n): ".Pastel(baseColor));
+                Console.Write("Use Last Settings (y/n): ".Pastel(baseColor));
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Answear answear = tests.IsValidAnswear(Console.ReadLine());
                 if (answear == Answear.YES) {
@@ -63,7 +83,7 @@ namespace N.YT.D {
 
 
             Console.WriteLine(" ");
-            Console.Write($"Select Format (".Pastel(baseColor) + "wav".Pastel(highColor) + "/".Pastel(baseColor) + "ogg".Pastel(highColor) + "/".Pastel(baseColor) + "mp3".Pastel(highColor) + "/".Pastel(baseColor) + "mp4".Pastel(highColor) + "/".Pastel(baseColor) + "webm".Pastel(highColor) + "): ".Pastel(baseColor));
+            Console.Write("Select Format (".Pastel(baseColor) + "wav".Pastel(highColor) + "/".Pastel(baseColor) + "ogg".Pastel(highColor) + "/".Pastel(baseColor) + "mp3".Pastel(highColor) + "/".Pastel(baseColor) + "mp4".Pastel(highColor) + "/".Pastel(baseColor) + "webm".Pastel(highColor) + "): ".Pastel(baseColor));
             Console.ForegroundColor = ConsoleColor.Yellow;
             string format = Console.ReadLine();
             Format form = tests.IsValidFormat(format);
@@ -76,7 +96,7 @@ namespace N.YT.D {
 
 
             Console.WriteLine(" ");
-            Console.Write($"Output Folder: ".Pastel(baseColor));
+            Console.Write("Output Folder: ".Pastel(baseColor));
             Console.ForegroundColor = ConsoleColor.Yellow;
             string output = Console.ReadLine();
             bool oput = tests.IsValidDir(output);
@@ -95,10 +115,10 @@ namespace N.YT.D {
         public static async Task invalidInput() {
             Console.Clear();
             banner();
-            Console.WriteLine($"{"Invalid input!".Pastel(baseColor)}");
-            Console.WriteLine($"{"Press any key to continie...".Pastel(baseColor)}");
+            Console.WriteLine("Invalid input!".Pastel(baseColor));
+            Console.WriteLine("Press any key to continie...".Pastel(baseColor));
             Console.ReadKey();
-            await work();
+            await Work();
         }
 
 

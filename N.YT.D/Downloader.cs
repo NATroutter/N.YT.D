@@ -56,16 +56,16 @@ namespace N.YT.D {
             Console.WriteLine(" ");
             if (uselast) {
                 await startExtract(ytdl, link, form, output, uselast);
-                await Program.work();
+                await Program.Work();
             } else {
                 Console.Write($"Start Download (y/n): ".Pastel(baseColor));
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Answear answear = tests.IsValidAnswear(Console.ReadLine());
                 if (answear == Answear.YES) {
                     await startExtract(ytdl, link, form, output, uselast);
-                    await Program.work();
+                    await Program.Work();
                 } else {
-                    await Program.work();
+                    await Program.Work();
                 }
             }
         }
@@ -112,7 +112,7 @@ namespace N.YT.D {
                 } else {
                     Console.WriteLine("Invalid Format!".Pastel(baseColor));
                     Console.ReadKey();
-                    await Program.work();
+                    await Program.Work();
                 }
             }
             Console.WriteLine("Done.".Pastel(highColor));
