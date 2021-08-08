@@ -5,7 +5,7 @@
 
 N.YT.D is a application for downloading youtube videos and converting them to various formats
 
-[Project page](https://natroutter.net/index.php?page=projects&p=NYTD) - [Download installer](https://natroutter.net/index.php?page=projects&p=NYTD) - [Video demo](https://youtu.be/GbqjFLPif9M)
+[Project page](https://natroutter.net/index.php?page=projects&p=NYTD) - [Download installer](https://natroutter.net/projects/N.YT.D/update/NYTDsetup.exe) - [Video demo](https://youtu.be/GbqjFLPif9M)
   
 ![gif demo](https://i.imgur.com/WxWPFnG.gif)
   
