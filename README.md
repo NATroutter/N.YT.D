@@ -3,8 +3,11 @@
 
 ![licence](https://img.shields.io/badge/License-MIT-brightgreen)
 
-Simple youtube downloader
+N.YT.D is a application for downloading youtube videos and converting them to various formats
 
-[More info here](https://natroutter.net/index.php?page=projects&p=NYTD)
-
+[Project page](https://natroutter.net/index.php?page=projects&p=NYTD) - [Download installer](https://natroutter.net/index.php?page=projects&p=NYTD) - [Video demo](https://youtu.be/GbqjFLPif9M)
+  
+![gif demo](https://i.imgur.com/WxWPFnG.gif)
+  
+ 
 </div>
