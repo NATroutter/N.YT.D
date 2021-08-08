@@ -4,4 +4,7 @@
 ![licence](https://img.shields.io/badge/License-MIT-brightgreen)
 
 Simple youtube downloader
+
+[More info here](https://natroutter.net/index.php?page=projects&p=NYTD)
+
 </div>
